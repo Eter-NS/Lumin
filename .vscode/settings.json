@@ -1,0 +1,4 @@
+{
+  "cSpell.words": ["lancedb", "nomic", "ollama", "Lumin"],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

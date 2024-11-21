@@ -1,0 +1,26 @@
+{
+  "name": "backend-test",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "backend-test/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "backend-test:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "backend-test:build:development"
+        },
+        "production": {
+          "buildTarget": "backend-test:build:production"
+        }
+      }
+    }
+  }
+}

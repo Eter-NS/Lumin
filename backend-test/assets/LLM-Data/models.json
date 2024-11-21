@@ -1,0 +1,12 @@
+[
+  {
+    "codename": "baseChat",
+    "model": "llama3.1:8b-instruct-q3_K_S",
+    "contextLength": 131072
+  },
+  {
+    "codename": "precision",
+    "model": "gemma2:9b-instruct-q3_K_S",
+    "contextLength": 8192
+  }
+]
