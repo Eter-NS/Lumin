@@ -22,9 +22,9 @@ export class ThemeApplierDirective implements AfterViewInit {
   }
 
   private _setAppThemeListener() {
-    this.#themeService.theme$.pipe(takeUntilDestroyed(this.#destroyRef)).subscribe((theme) => {
-      this._toggleAppTheme(theme)
-    })
+    this.#themeService.theme$
+      .pipe(takeUntilDestroyed(this.#destroyRef))
+      .subscribe(this._toggleAppTheme.bind(this))
   }
 
   private _toggleAppTheme(theme: AppTheme) {
