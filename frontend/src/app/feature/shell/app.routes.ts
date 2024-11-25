@@ -11,11 +11,17 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('../settings/settings.component').then((c) => c.SettingsComponent),
   },
   {
-    path: 'home',
+    path: '',
     loadComponent: () => import('../chat/chat.component').then((c) => c.ChatComponent),
   },
   {
-    path: '',
-    loadComponent: () => import('../chat/chat.component').then((c) => c.ChatComponent),
+    path: 'home',
+    redirectTo: '',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
 ]
