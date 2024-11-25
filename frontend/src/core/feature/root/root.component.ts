@@ -9,4 +9,4 @@ import { ThemeApplierDirective } from '@lumin/shared/theme-applier/theme-applier
   selector: 'app-root',
   template: `<router-outlet />`,
 })
-export class AppComponent {}
+export class RootComponent {}
