@@ -11,12 +11,12 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    redirectTo: 'app',
+    redirectTo: '/app/chat',
     pathMatch: 'full',
   },
   {
     path: '**',
-    redirectTo: 'app',
+    redirectTo: '/app/chat',
     pathMatch: 'full',
   },
 ]
