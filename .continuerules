@@ -1,0 +1,11 @@
+Whenever you are writing Angular code, make sure to:
+
+- use standalone components and directives
+- use inject() function to inject dependencies from Angular DI (dependency injection)
+- use Tailwind CSS for styling
+- apply the DRY principle
+- apply the SOLID principles
+- define types and interfaces when they are needed
+- instead of creating one big function, separate the functionality and modularize it.
+
+Please do not write comments like "// example function implementation", always provide full implementation when writing code.
