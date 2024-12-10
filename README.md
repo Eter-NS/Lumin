@@ -19,6 +19,14 @@ To start using Lumin, please make sure to have installed `Node.js` in version `2
    - `start-windows.bat` on Windows
 6. Open your browser at [http://localhost:4200](http://localhost:4200) to see the application running!
 
+## Attribution
+
+This project wouldn't be created without tools like:
+
+- [Carbon Icons](https://github.com/carbon-design-system/carbon)
+- [Angular - Scalable frontend framework for web apps](https://github.com/angular/angular)
+- [Tailwindcss](https://github.com/tailwindlabs/tailwindcss)
+
 ## Nx plugins and code generators
 
 Add Nx plugins to leverage their code generators and automated, inferred tasks.
