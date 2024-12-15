@@ -10,14 +10,14 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src",
     "paths": {
-      "@lumin/auth/*": ["auth/data-access/*", "auth/feature/*", "auth/ui/*"],
+      "@lumin/auth/*": ["auth/data-access/*", "auth/feature/*", "auth/ui/*", "auth/utils/*"],
       "@lumin/shared/*": [
         "shared/data-access/*",
         "shared/feature/*",
         "shared/ui/*",
-        "shared/tools/*"
+        "shared/utils/*"
       ],
-      "@lumin/app/*": ["app/data-access/*", "app/feature/*", "app/ui/*", "app/tools/*"]
+      "@lumin/app/*": ["app/data-access/*", "app/feature/*", "app/ui/*", "app/utils/*"]
     }
   },
   "files": [],
