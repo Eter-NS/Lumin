@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, input } from '@angular/core'
+import { IconComponent } from '@lumin/shared/models/iconComponent.abstractClass'
 
 @Component({
   selector: 'app-settings-adjust-icon',
@@ -6,8 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   template: `<svg
     role="img"
     viewbox="0 0 32 32"
-    width="32"
-    height="32"
+    [class]="size()"
     stroke="currentColor"
     fill="currentColor"
     aria-hidden="true"
@@ -18,4 +18,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   </svg>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingsAdjustIconComponent {}
+export class SettingsAdjustIconComponent implements IconComponent {
+  size = input('size-8')
+}

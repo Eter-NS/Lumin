@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, input } from '@angular/core'
+import { IconComponent } from '@lumin/shared/models/iconComponent.abstractClass'
 
 @Component({
   selector: 'app-book-icon',
@@ -7,8 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
     <svg
       role="img"
       viewbox="0 0 32 32"
-      width="32"
-      height="32"
+      [class]="size()"
       stroke="currentColor"
       fill="currentColor"
       aria-hidden="true"
@@ -21,4 +21,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core'
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BookIconComponent {}
+export class BookIconComponent implements IconComponent {
+  size = input('size-8')
+}

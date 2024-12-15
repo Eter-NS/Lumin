@@ -1,8 +1,8 @@
 import { Type } from '@angular/core'
+import { IconComponent } from './iconComponent.interface'
 
 export interface RoutingLink {
   routerLink: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: Type<any>
+  iconComponent: Type<IconComponent>
   linkText: string
 }
