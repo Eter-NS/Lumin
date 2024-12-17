@@ -3,9 +3,15 @@ import { Injectable } from '@angular/core'
 @Injectable({ providedIn: 'root' })
 export class LocalStorageController {
   get<T>(key: string): T | null {
-    const stringifiedValue = localStorage.getItem(key)
+    const storedValue = localStorage.getItem(key)
 
-    return stringifiedValue === null ? null : (JSON.parse(stringifiedValue) as T)
+    if (!storedValue) {
+      return null
+    }
+
+    const isJson = storedValue.startsWith('{') || storedValue.startsWith('[')
+
+    return (isJson ? JSON.parse(storedValue) : storedValue) as T
   }
 
   has(key: string) {
