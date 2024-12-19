@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core'
-import { IconComponent } from '@lumin/shared/models/iconComponent.abstractClass'
+import { IconComponent } from '@lumin/shared/models/iconComponent.interface'
 
 @Component({
   selector: 'app-settings-adjust-icon',
