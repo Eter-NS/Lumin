@@ -1,4 +1,4 @@
-import { inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { inject, Injectable } from '@angular/core'
 import { LocalStorageController } from '../local-storage-controller/local-storage-controller.service'
 import {
   BehaviorSubject,
@@ -13,13 +13,13 @@ import { AppTheme } from 'shared/utils/models/appTheme.type'
 import { saveToLocalStorage } from 'shared/utils/rxjs-operators/save-to-local-storage/save-to-local-storage'
 import { BreakpointObserver } from '@angular/cdk/layout'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { isPlatformBrowser } from '@angular/common'
+import { EnvironmentCheckToken } from '@lumin/shared/injection-tokens/environment-check/environment-check.token'
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   #observerService = inject(BreakpointObserver)
   #localStorage = inject(LocalStorageController)
-  #platform = inject(PLATFORM_ID)
+  #environmentCheck = inject(EnvironmentCheckToken)
 
   #QUERY = '(prefers-color-scheme: dark)' as const
   #THEME_TOKEN = 'APP_THEME' as const
@@ -46,7 +46,7 @@ export class ThemeService {
   )
 
   constructor() {
-    if (isPlatformBrowser(this.#platform)) {
+    if (this.#environmentCheck.isPlatformBrowser()) {
       this._initializeClientTheme()
     }
 
@@ -61,7 +61,7 @@ export class ThemeService {
     const theme = this.#localStorage.get<AppTheme>(this.#THEME_TOKEN)
 
     if (theme) {
-      this._themeSubject.next(theme)
+      this.selectNewTheme(theme)
     }
   }
 }
