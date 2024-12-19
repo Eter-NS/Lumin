@@ -1,3 +1,15 @@
+@use './scss/scrollbar';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.app-outline {
+  @apply focus-within:outline focus-within:outline-2 focus-within:outline-text-light dark:focus-within:outline-text;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

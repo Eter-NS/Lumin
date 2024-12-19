@@ -1,0 +1,22 @@
+::-webkit-scrollbar {
+  @apply w-2 sm:w-3;
+
+  &-track {
+    @apply bg-transparent;
+  }
+  &-thumb {
+    @apply rounded-lg bg-gray-400;
+  }
+}
+
+.scrollable-element::-webkit-scrollbar {
+  @apply hidden;
+
+  &-thumb {
+    @apply bg-gradient-to-t hover:from-custom-1 hover:via-custom-2 hover:to-custom-3 dark:bg-gray-600;
+  }
+}
+
+.scrollable-element:where(:hover, :focus-within)::-webkit-scrollbar {
+  @apply block;
+}
