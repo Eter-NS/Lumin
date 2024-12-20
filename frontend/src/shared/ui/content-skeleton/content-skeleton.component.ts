@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } from '@angular/core'
 
 @Component({
   selector: 'app-content-skeleton',
@@ -36,7 +36,7 @@ export class ContentSkeletonComponent {
   /**
    * A set of tailwind classes to modify amount of rows presented
    */
-  readonly rows = input<number>(2)
+  readonly rows = input(2, { transform: numberAttribute })
   /**
    * A set of tailwind classes to modify color of the skeleton stripes
    */

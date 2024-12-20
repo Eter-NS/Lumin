@@ -3,15 +3,6 @@ import { ContentSkeletonComponent } from './content-skeleton.component'
 import { DebugElement } from '@angular/core'
 import { By } from '@angular/platform-browser'
 
-// @Component({
-//   standalone: true,
-//   imports: [ContentSkeletonComponent],
-//   template: ` <app-content-skeleton [rows]="rows()" /> `,
-// })
-// class TestComponent {
-//   rows = input<number>()
-// }
-
 describe('ContentSkeletonComponent', () => {
   let component: ContentSkeletonComponent
   let fixture: ComponentFixture<ContentSkeletonComponent>
