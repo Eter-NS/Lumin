@@ -65,21 +65,21 @@ describe('CustomTitleStrategy', () => {
     expect(TestBed.inject(Title).getTitle()).toBe('Lumin')
   })
 
-  it('should update the title (root level route)', async () => {
+  it('should update the title and append a postfix "| Lumin" (root level route)', async () => {
     await harness.navigateByUrl('/path-with-title', TestComponent)
 
-    expect(TestBed.inject(Title).getTitle()).toBe('Example-title')
+    expect(TestBed.inject(Title).getTitle()).toBe('Example-title | Lumin')
   })
 
   it('should use the higher order title if a route does not provide it (nested route)', async () => {
     await harness.navigateByUrl('/path-with-title/nested-path-without-title', TestComponent)
 
-    expect(TestBed.inject(Title).getTitle()).toBe('Example-title')
+    expect(TestBed.inject(Title).getTitle()).toBe('Example-title | Lumin')
   })
 
   it('should update the title (nested route)', async () => {
     await harness.navigateByUrl('/path-with-title/nested-path-with-title', TestComponent)
 
-    expect(TestBed.inject(Title).getTitle()).toBe('Example-nested-title')
+    expect(TestBed.inject(Title).getTitle()).toBe('Example-nested-title | Lumin')
   })
 })

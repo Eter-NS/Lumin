@@ -14,9 +14,9 @@ export class CustomTitleStrategy extends TitleStrategy {
 
   override updateTitle(snapshot: RouterStateSnapshot): void {
     const DEFAULT_TITLE = 'Lumin'
-    const title = this.buildTitle(snapshot) || ''
+    const title = this.buildTitle(snapshot) ?? ''
 
     this.#titleState.setTitle(title)
-    this.#title.setTitle(title || DEFAULT_TITLE)
+    this.#title.setTitle(title.length ? `${title} | ${DEFAULT_TITLE}` : DEFAULT_TITLE)
   }
 }
