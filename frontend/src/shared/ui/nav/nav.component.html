@@ -1,0 +1,60 @@
+@let expanded$ = readonlyExpanded();
+
+<nav
+  class="view-transition | z-[2] origin-right bg-ui-background-light p-1.5 text-text-light transition-[width] sm:flex sm:h-full sm:flex-col sm:gap-y-5 sm:p-4 dark:bg-ui-background dark:text-text"
+  [ngClass]="[expanded$ ? 'sm:w-80' : 'sm:w-20']"
+>
+  <section aria-label="Navigation">
+    <ul data-test="navigation-list" class="flex items-center justify-evenly gap-4 sm:flex-col">
+      @for (link of routingLinks(); track link.linkText) {
+        <li
+          data-test="navigation-list-item"
+          class="app-outline relative grid aspect-square w-1/5 max-w-14 place-content-center rounded-lg sm:aspect-auto sm:w-full sm:max-w-full sm:place-content-start"
+        >
+          <a
+            class="cursor-pointer p-2 outline-none before:absolute before:inset-0 before:rounded-lg before:bg-current before:opacity-10 hover:before:opacity-25 focus-visible:before:opacity-25 motion-safe:before:transition-opacity sm:flex sm:items-center sm:gap-x-4"
+            [routerLink]="link.routerLink"
+            routerLinkActive=" before:opacity-20 hover:before:opacity-30"
+            ariaCurrentWhenActive="page"
+            attr.aria-labelledby="navigation-link-text-{{ $index }}"
+          >
+            <div class="z-[1] grid place-content-center">
+              <ng-container
+                *ngComponentOutlet="link.iconComponent; inputs: iconComponentSizeConfig"
+              ></ng-container>
+            </div>
+            <span
+              id="navigation-link-text-{{ $index }}"
+              class="z-[1] block text-center text-sm transition-opacity duration-100 sm:text-base"
+              [ngClass]="[expanded$ ? 'sm:opacity-100' : 'sm:opacity-0']"
+              >{{ link.linkText }}</span
+            >
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
+
+  @let content$ = content();
+
+  @if (expanded$ && content$) {
+    <section data-test="nav-projected-content" class="hidden sm:block">
+      <ng-container [ngTemplateOutlet]="content$"></ng-container>
+    </section>
+  }
+
+  <button
+    type="button"
+    class="app-outline relative mt-auto hidden w-12 rounded-lg p-2 before:absolute before:inset-0 before:z-0 before:rounded-lg before:bg-current before:opacity-0 hover:before:opacity-25 focus-visible:before:opacity-25 motion-safe:before:transition-opacity sm:block sm:self-end"
+    [ngClass]="[expanded$ ? 'sm:ms-2 sm:justify-self-end' : 'sm:justify-self-center']"
+    attr.aria-label="{{ expanded$ ? 'Collapse' : 'Expand' }} nav element"
+    (click)="toggleExpanded()"
+  >
+    <span
+      class="grid origin-center place-content-center transition-transform"
+      [ngClass]="[expanded$ ? 'rotate-180' : '']"
+    >
+      <app-chevron-left />
+    </span>
+  </button>
+</nav>
