@@ -1,13 +1,11 @@
-import { Directive, input } from '@angular/core'
+import { Directive } from '@angular/core'
 
 @Directive({
   selector: 'input[appInput], textarea[appInput]',
   standalone: true,
   host: {
-    '[class]':
-      "'fieldset-grid--input | border-select-colour focus-visible:outline-select-colour border-b-2 outline-none focus-visible:outline-1 ' + overrideStyles()",
+    class:
+      'flex-1 shrink-0 rounded-lg bg-ui-background-light p-1 text-text-light outline-none transition-colors dark:bg-ui-background dark:text-text',
   },
 })
-export class InputDirective {
-  readonly overrideStyles = input<string>('')
-}
+export class InputDirective {}
