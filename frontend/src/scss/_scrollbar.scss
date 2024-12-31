@@ -1,3 +1,7 @@
+%showElement {
+  @apply block;
+}
+
 ::-webkit-scrollbar {
   @apply w-2 sm:w-3;
 
@@ -10,7 +14,7 @@
 }
 
 .scrollable-element::-webkit-scrollbar {
-  @apply hidden;
+  // @apply hidden;
 
   &-thumb {
     @apply bg-gradient-to-t hover:from-custom-1 hover:via-custom-2 hover:to-custom-3 dark:bg-gray-600;
@@ -18,5 +22,13 @@
 }
 
 .scrollable-element:where(:hover, :focus-within)::-webkit-scrollbar {
-  @apply block;
+  @extend %showElement;
+}
+
+.show-scrollbar::-webkit-scrollbar {
+  @extend %showElement;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  @apply hidden;
 }
