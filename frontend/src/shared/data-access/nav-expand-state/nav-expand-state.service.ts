@@ -35,9 +35,6 @@ export class NavExpandStateService implements OnDestroy {
   private _loadStateFromStorage() {
     const valueFromStorage = this.#localStorage.get<ExpandState>(this.#NAV_EXPAND_STATE_TOKEN)
 
-    console.log('valueFromStorage', valueFromStorage)
-    console.log('typeof valueFromStorage', typeof valueFromStorage)
-
     if (valueFromStorage) {
       this.expand.set(valueFromStorage.state)
     }

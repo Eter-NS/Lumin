@@ -98,7 +98,6 @@ describe('NavExpandStateService - browser', () => {
       const setSpy = jest.spyOn(service.expand, 'set')
 
       // Act
-      console.log('Now')
       service['_loadStateFromStorage']()
 
       // Assert
