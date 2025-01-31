@@ -10,10 +10,12 @@
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "localize": ["en-US", "pl"],
+        "i18nMissingTranslation": "warning",
         "outputPath": "dist/frontend",
         "index": "frontend/src/index.html",
         "browser": "frontend/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -57,6 +59,12 @@
           "optimization": false,
           "extractLicenses": false,
           "sourceMap": true
+        },
+        "pl": {
+          "localize": ["pl"]
+        },
+        "en": {
+          "localize": ["en-US"]
         }
       },
       "defaultConfiguration": "production"
@@ -90,6 +98,12 @@
       "options": {
         "jestConfig": "frontend/jest.config.ts"
       }
+    }
+  },
+  "i18n": {
+    "sourceLocale": "en-US",
+    "locales": {
+      "pl": "frontend/src/locale/messages_pl/messages.xlf"
     }
   }
 }
