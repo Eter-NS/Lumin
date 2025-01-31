@@ -13,10 +13,23 @@ export class CustomTitleStrategy extends TitleStrategy {
   }
 
   override updateTitle(snapshot: RouterStateSnapshot): void {
-    const DEFAULT_TITLE = 'Lumin'
     const title = this.buildTitle(snapshot) ?? ''
 
-    this.#titleState.setTitle(title)
-    this.#title.setTitle(title.length ? `${title} | ${DEFAULT_TITLE}` : DEFAULT_TITLE)
+    this._propagateTitle(title)
+  }
+
+  /**
+   * Sets the new title for the application.
+   *
+   * @param {string} newTitle - The new title to be set.
+   */
+  setTitle(newTitle: string) {
+    this._propagateTitle(newTitle)
+  }
+
+  private _propagateTitle(newTitle: string) {
+    const DEFAULT_TITLE = 'Lumin'
+    this.#titleState.setTitle(newTitle)
+    this.#title.setTitle(newTitle.length ? `${newTitle} | ${DEFAULT_TITLE}` : DEFAULT_TITLE)
   }
 }

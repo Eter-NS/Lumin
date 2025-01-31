@@ -82,4 +82,17 @@ describe('CustomTitleStrategy', () => {
 
     expect(TestBed.inject(Title).getTitle()).toBe('Example-nested-title | Lumin')
   })
+
+  it(`should use _propagate() when setTitle gets called.`, () => {
+    // Arrange
+    const service = TestBed.inject(CustomTitleStrategy)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const spy = jest.spyOn(service as any, '_propagateTitle')
+
+    // Act
+    service.setTitle('xyz')
+
+    // Assert
+    expect(spy).toHaveBeenCalledWith('xyz')
+  })
 })
