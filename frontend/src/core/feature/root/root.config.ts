@@ -10,6 +10,8 @@ import { provideClientHydration, withEventReplay, withI18nSupport } from '@angul
 import { CustomTitleStrategy } from '@lumin/shared/custom-title-strategy/custom-title-strategy.service'
 import { APP_CONFIG, APP_CONFIG_VALUE } from '@lumin/shared/app-config/app-config.token'
 import { provideHttpClient, withFetch } from '@angular/common/http'
+import { LoggerService } from '@lumin/shared/logger/logger.service'
+import { loggerServiceFactory } from '@lumin/shared/logger/loggerService.factory'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,5 +24,10 @@ export const appConfig: ApplicationConfig = {
       useClass: CustomTitleStrategy,
     },
     { provide: APP_CONFIG, useValue: APP_CONFIG_VALUE },
+    {
+      provide: LoggerService,
+      useFactory: loggerServiceFactory,
+      deps: [APP_CONFIG],
+    },
   ],
 }
