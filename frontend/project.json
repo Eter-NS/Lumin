@@ -103,7 +103,7 @@
   "i18n": {
     "sourceLocale": "en-US",
     "locales": {
-      "pl": "frontend/src/locale/messages_pl/messages.xlf"
+      "pl": "frontend/src/locale/messages_pl.xlf"
     }
   }
 }
