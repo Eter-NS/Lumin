@@ -1,5 +1,13 @@
 import { NgClass } from '@angular/common'
-import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  numberAttribute,
+} from '@angular/core'
+import { TailwindMergeToken } from '@lumin/shared/injection-tokens/tailwind-merge/tailwind-merge.token'
 
 @Component({
   selector: 'app-content-skeleton',
@@ -7,18 +15,18 @@ import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } 
   imports: [NgClass],
   template: `
     <div class="flex-1 select-none space-y-6 py-1">
-      <div data-test="skeleton-static-row" class="h-2 rounded" [ngClass]="[color()]"></div>
+      <div data-test="skeleton-static-row" [class]="twMerge('h-2 rounded', color())"></div>
       @for (item of rowsArray(); track item) {
         <div class="space-y-3">
           <div data-test="skeleton-dynamic-row" class="grid grid-cols-3 gap-4">
-            @for (row of dynamicRowItems; track row) {
+            @for (row of STATIC_ROWS; track row) {
               <div
-                class="h-2 rounded"
-                [ngClass]="[color(), $even ? 'col-span-2' : 'col-span-1']"
+                [class]="twMerge('h-2 rounded', color())"
+                [ngClass]="[$even ? 'col-span-2' : 'col-span-1']"
               ></div>
             }
           </div>
-          <div data-test="skeleton-static-row" class="h-2 rounded" [ngClass]="[color()]"></div>
+          <div data-test="skeleton-static-row" [class]="twMerge('h-2 rounded', color())"></div>
         </div>
       }
     </div>
@@ -29,6 +37,8 @@ import { ChangeDetectionStrategy, Component, computed, input, numberAttribute } 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentSkeletonComponent {
+  protected twMerge = inject(TailwindMergeToken).twMerge
+
   /**
    * A set of tailwind classes to modify height of the placeholder
    */
@@ -53,5 +63,5 @@ export class ContentSkeletonComponent {
     Array.from({ length: this.rows() }, (_, i) => i)
   )
 
-  protected readonly dynamicRowItems = Array.from({ length: 4 }).map((_, i) => i)
+  protected readonly STATIC_ROWS = Array.from({ length: 4 }).map((_, i) => i)
 }
