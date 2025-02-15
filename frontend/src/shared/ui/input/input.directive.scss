@@ -1,0 +1,7 @@
+[appinput]::placeholder {
+  @apply transition-opacity duration-300;
+
+  @starting-style {
+    @apply opacity-0;
+  }
+}

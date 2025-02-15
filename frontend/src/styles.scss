@@ -1,5 +1,6 @@
 @use './scss/scrollbar';
 @use './scss/cdkStyles';
+@use '@lumin/shared/input/input.directive.scss';
 
 @tailwind base;
 @tailwind components;
