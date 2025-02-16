@@ -5,7 +5,6 @@ import { Provider } from '@angular/core'
 import { provideHttpClient, withFetch } from '@angular/common/http'
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing'
 import { APP_CONFIG, APP_CONFIG_VALUE } from '../app-config/app-config.token'
-import { firstValueFrom } from 'rxjs'
 import { LogLevel } from '@lumin/shared/models/logLevel.type'
 
 describe('ApiLoggerService', () => {
@@ -36,7 +35,7 @@ describe('ApiLoggerService', () => {
     const httpTesting = TestBed.inject(HttpTestingController)
 
     // Act
-    const requestPromise = firstValueFrom(service.log('info', 'Hello World!'))
+    service.log('info', 'Hello World!')
 
     const req = httpTesting.expectOne(
       {
@@ -45,12 +44,10 @@ describe('ApiLoggerService', () => {
       },
       `API logger POST request`
     )
-    req.flush(true)
 
     // Assert
     expect(req.request.method).toBe('POST')
     expect(req.request.url).toBe('http://localhost:3000/api/log')
-    expect(await requestPromise).toBe(true)
   })
 
   it(`should contain property level and message as body request.`, async () => {
@@ -62,7 +59,7 @@ describe('ApiLoggerService', () => {
     const message = 'Hello World!'
 
     // Act
-    const requestPromise = firstValueFrom(service.log(level, message))
+    service.log(level, message)
 
     const req = httpTesting.expectOne(
       {
@@ -71,10 +68,8 @@ describe('ApiLoggerService', () => {
       },
       `API logger POST request`
     )
-    req.flush(true)
 
     // Assert
     expect(req.request.body).toEqual({ level, message })
-    expect(await requestPromise).toBe(true)
   })
 })
