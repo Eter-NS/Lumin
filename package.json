@@ -98,7 +98,13 @@
       "micromatch@<4.0.8": ">=4.0.8"
     },
     "onlyBuiltDependencies": [
-      "@swc/core, core-js-pure, esbuild, lmdb, msgpackr-extract, nice-napi, nx"
+      "@swc/core",
+      "core-js-pure",
+      "esbuild",
+      "lmdb",
+      "msgpackr-extract",
+      "nice-napi",
+      "nx"
     ]
   }
 }
