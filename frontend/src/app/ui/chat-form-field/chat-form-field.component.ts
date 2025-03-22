@@ -1,9 +1,18 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core'
+import { NgTemplateOutlet } from '@angular/common'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  contentChild,
+  inject,
+  input,
+  TemplateRef,
+} from '@angular/core'
 import { TailwindMergeToken } from '@lumin/shared/injection-tokens/tailwind-merge/tailwind-merge.token'
 
 @Component({
   selector: 'app-chat-form-field',
   standalone: true,
+  imports: [NgTemplateOutlet],
   template: `
     <div data-test="decorative-border-positioner" class="absolute inset-0">
       <div
@@ -28,9 +37,10 @@ import { TailwindMergeToken } from '@lumin/shared/injection-tokens/tailwind-merg
           )
         "
       >
-        <ng-content select="[appInputLabel]">No label detected!</ng-content>
-        <ng-content select="[appInput]">No input detected!</ng-content>
-        <ng-content select="[appInputSuffix]"></ng-content>
+        <ng-template #contentFallback>
+          <span data-test="content-fallback">No content detected!</span>
+        </ng-template>
+        <ng-container *ngTemplateOutlet="content() || contentFallback"></ng-container>
       </div>
     </div>
   `,
@@ -48,4 +58,6 @@ export class ChatFormFieldComponent {
   innerBackground = input('bg-ui-background-light dark:bg-ui-background')
   textColor = input('dark:text-text text-text-light')
   overrideStyles = input('')
+
+  protected content = contentChild('content', { read: TemplateRef })
 }

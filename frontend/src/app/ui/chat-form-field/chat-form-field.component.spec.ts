@@ -10,23 +10,25 @@ import { InputSuffixDirective } from '@lumin/shared/input-suffix/input-suffix.di
   standalone: true,
   imports: [ChatFormFieldComponent, InputLabelDirective, InputDirective, InputSuffixDirective],
   template: `
-    <app-form-field>
-      @if (showInputLabelContent()) {
-        <label appInputLabel for="exampleInput"></label>
+    <app-chat-form-field>
+      @if (showContent()) {
+        <ng-template #content>
+          <div data-test="projected-content" class="xyz-example">
+            Hello, I'm projected from parent!
+          </div>
+        </ng-template>
       }
-      @if (showInputContent()) {
-        <input appInput type="text" id="exampleInput" />
+      @if (showIncorrectContent()) {
+        <ng-template #notCorrectTemplateName>
+          <div data-test="incorrect-content">I think I shouldn't be here...</div>
+        </ng-template>
       }
-      @if (showInputSuffixContent()) {
-        <button appInputSuffix type="submit"></button>
-      }
-    </app-form-field>
+    </app-chat-form-field>
   `,
 })
 class TestComponent {
-  showInputLabelContent = signal(false)
-  showInputContent = signal(false)
-  showInputSuffixContent = signal(false)
+  showContent = signal(false)
+  showIncorrectContent = signal(false)
 }
 
 describe('ChatFormFieldComponent', () => {
@@ -110,51 +112,51 @@ describe('ChatFormFieldComponent', () => {
       // Assert
       expect(formFieldContentWrapperRef).toBeTruthy()
       expect(formFieldContentWrapperRef.classes[newClass]).toBeTruthy()
-      ;('https://www.youtube.com/watch?v=MoRScEseTf4')
     })
   })
 
-  describe(`ng-content`, () => {
-    it(`should display the content projected into the \`appInputLabel\` slot.`, () => {
+  describe(`content projection`, () => {
+    it(`should display the content projected from ng-template with #content.`, () => {
       // Arrange
       const parentFixture = TestBed.createComponent(TestComponent)
       const parentComponent = parentFixture.componentInstance
-      parentComponent.showInputLabelContent.set(true)
+      parentComponent.showContent.set(true)
       parentFixture.detectChanges()
 
       // Act
-      const inputLabelRef = parentFixture.debugElement.query(By.css(`[appInputLabel]`))
+      const projectedContent = parentFixture.debugElement.query(
+        By.css(`[data-test="projected-content"]`)
+      )
+      const contentFallback = parentFixture.debugElement.query(
+        By.css(`[data-test="content-fallback"]`)
+      )
 
       // Assert
-      expect(inputLabelRef).toBeTruthy()
+      expect(projectedContent).toBeTruthy()
+      expect(
+        (projectedContent.nativeElement.textContent as string).trim().includes('Hello')
+      ).toBeTruthy()
+      expect(contentFallback).toBeFalsy()
     })
 
-    it(`should display the content projected into the \`appInput\` slot.`, () => {
+    it(`should display the fallback content if the ng-template is not sent with correct name or doesn't exist.`, () => {
       // Arrange
       const parentFixture = TestBed.createComponent(TestComponent)
       const parentComponent = parentFixture.componentInstance
-      parentComponent.showInputContent.set(true)
+      parentComponent.showIncorrectContent.set(true)
       parentFixture.detectChanges()
 
       // Act
-      const inputRef = parentFixture.debugElement.query(By.css(`[appInput]`))
+      const contentFallback = parentFixture.debugElement.query(
+        By.css(`[data-test="content-fallback"]`)
+      )
+      const incorrectContent = parentFixture.debugElement.query(
+        By.css(`[data-test="incorrect-content"]`)
+      )
 
       // Assert
-      expect(inputRef).toBeTruthy()
-    })
-
-    it(`should display the content projected into the \`appInputSuffix\` slot.`, () => {
-      // Arrange
-      const parentFixture = TestBed.createComponent(TestComponent)
-      const parentComponent = parentFixture.componentInstance
-      parentComponent.showInputSuffixContent.set(true)
-      parentFixture.detectChanges()
-
-      // Act
-      const inputSuffixRef = parentFixture.debugElement.query(By.css(`[appInputSuffix]`))
-
-      // Assert
-      expect(inputSuffixRef).toBeTruthy()
+      expect(contentFallback).toBeTruthy()
+      expect(incorrectContent).toBeFalsy()
     })
   })
 
@@ -189,24 +191,20 @@ describe('ChatFormFieldComponent', () => {
       expect(elementRef.classes['flex']).toBeTruthy()
     })
 
-    it(`should render the ng-content elements.`, () => {
+    it(`should render the projected content.`, () => {
       // Arrange
       const parentFixture = TestBed.createComponent(TestComponent)
       const parentComponent = parentFixture.componentInstance
-      parentComponent.showInputLabelContent.set(true)
-      parentComponent.showInputContent.set(true)
-      parentComponent.showInputSuffixContent.set(true)
+      parentComponent.showContent.set(true)
       parentFixture.detectChanges()
 
       // Act
-      const inputLabelRef = parentFixture.debugElement.query(By.css(`[appInputLabel]`))
-      const inputRef = parentFixture.debugElement.query(By.css(`[appInput]`))
-      const inputSuffixRef = parentFixture.debugElement.query(By.css(`[appInputSuffix]`))
+      const inputLabelRef = parentFixture.debugElement.query(
+        By.css(`[data-test="projected-content"]`)
+      )
 
       // Assert
       expect(inputLabelRef).toBeTruthy()
-      expect(inputRef).toBeTruthy()
-      expect(inputSuffixRef).toBeTruthy()
     })
   })
 })
