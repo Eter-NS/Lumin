@@ -1,5 +1,5 @@
 export function formatTime(time: number | null | undefined): string | null {
-  if (!time) {
+  if (typeof time !== 'number') {
     return null
   }
 
