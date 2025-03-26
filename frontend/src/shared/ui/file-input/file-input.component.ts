@@ -23,6 +23,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
       #fileInputRef
       type="file"
       class="sr-only"
+      aria-hidden="true"
       data-test="file-input-ref"
       [multiple]="multiple()"
       [accept]="accept()"
@@ -63,7 +64,8 @@ export class FileInputComponent implements ControlValueAccessor {
       return
     }
 
-    const files = (event.target as HTMLInputElement).files
+    const target = event.target as HTMLInputElement
+    const files = target.files
     if (!files) {
       this.resetValue()
       return
@@ -85,6 +87,7 @@ export class FileInputComponent implements ControlValueAccessor {
 
     this._value = arr
     this.onChange(this._value)
+    target.value = ''
   }
 
   private resetValue() {
