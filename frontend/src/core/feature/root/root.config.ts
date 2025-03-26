@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
+import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection } from '@angular/core'
 import {
   provideRouter,
   TitleStrategy,
@@ -12,6 +12,7 @@ import { APP_CONFIG, APP_CONFIG_VALUE } from '@lumin/shared/app-config/app-confi
 import { provideHttpClient, withFetch } from '@angular/common/http'
 import { LoggerService } from '@lumin/shared/logger/logger.service'
 import { loggerServiceFactory } from '@lumin/shared/logger/loggerService.factory'
+import { CustomErrorHandler } from '@lumin/shared/custom-error-handler/custom-error-handler.service'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,5 +30,6 @@ export const appConfig: ApplicationConfig = {
       useFactory: loggerServiceFactory,
       deps: [APP_CONFIG],
     },
+    { provide: ErrorHandler, useClass: CustomErrorHandler },
   ],
 }
